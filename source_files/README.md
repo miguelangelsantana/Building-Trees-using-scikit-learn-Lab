@@ -54,142 +54,26 @@ Now, you'll load our dataset in a DataFrame, perform some basic EDA, and get a g
 
 ```python
 # Create DataFrame
-dataset = pd.read_csv('data_banknote_authentication.csv', header=None) 
-dataset.columns = ['Variance', 'Skewness', 'Curtosis', 'Entropy', 'Class']
+
 ```
 
 
 ```python
 # Describe the dataset
-dataset.describe()
+
 ```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Variance</th>
-      <th>Skewness</th>
-      <th>Curtosis</th>
-      <th>Entropy</th>
-      <th>Class</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>count</td>
-      <td>1372.000000</td>
-      <td>1372.000000</td>
-      <td>1372.000000</td>
-      <td>1372.000000</td>
-      <td>1372.000000</td>
-    </tr>
-    <tr>
-      <td>mean</td>
-      <td>0.433735</td>
-      <td>1.922353</td>
-      <td>1.397627</td>
-      <td>-1.191657</td>
-      <td>0.444606</td>
-    </tr>
-    <tr>
-      <td>std</td>
-      <td>2.842763</td>
-      <td>5.869047</td>
-      <td>4.310030</td>
-      <td>2.101013</td>
-      <td>0.497103</td>
-    </tr>
-    <tr>
-      <td>min</td>
-      <td>-7.042100</td>
-      <td>-13.773100</td>
-      <td>-5.286100</td>
-      <td>-8.548200</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <td>25%</td>
-      <td>-1.773000</td>
-      <td>-1.708200</td>
-      <td>-1.574975</td>
-      <td>-2.413450</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <td>50%</td>
-      <td>0.496180</td>
-      <td>2.319650</td>
-      <td>0.616630</td>
-      <td>-0.586650</td>
-      <td>0.000000</td>
-    </tr>
-    <tr>
-      <td>75%</td>
-      <td>2.821475</td>
-      <td>6.814625</td>
-      <td>3.179250</td>
-      <td>0.394810</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <td>max</td>
-      <td>6.824800</td>
-      <td>12.951600</td>
-      <td>17.927400</td>
-      <td>2.449500</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
 
 
 ```python
 # Shape of dataset
-dataset.shape
+
 ```
-
-
-
-
-    (1372, 5)
-
-
 
 
 ```python
-# Class frequency of target variable 
-dataset['Class'].value_counts()
+# Class frequency of target variable 
+
 ```
-
-
-
-
-    0    762
-    1    610
-    Name: Class, dtype: int64
-
-
 
 ## Step 3: Create features, labels, training, and test data
 
@@ -199,16 +83,14 @@ Now we need to create our feature set `X` and labels `y`:
 
 
 ```python
-# Create features and labels
-X = dataset.drop('Class', axis=1)  
-y = dataset['Class'] 
+# Create features and labels
+
 ```
 
 
 ```python
 # Perform an 80/20 split
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.20, random_state=10)
+
 ```
 
 ## Step 4: Train the classifier and make predictions
@@ -219,26 +101,13 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 ```python
 # Train a DT classifier
-classifier = DecisionTreeClassifier(random_state=10)  
-classifier.fit(X_train, y_train) 
+
 ```
-
-
-
-
-    DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion='gini',
-                           max_depth=None, max_features=None, max_leaf_nodes=None,
-                           min_impurity_decrease=0.0, min_impurity_split=None,
-                           min_samples_leaf=1, min_samples_split=2,
-                           min_weight_fraction_leaf=0.0, presort='deprecated',
-                           random_state=10, splitter='best')
-
-
 
 
 ```python
 # Make predictions for test data
-y_pred = classifier.predict(X_test)  
+
 ```
 
 ## Step 5: Check predictive performance
@@ -250,97 +119,18 @@ Use different evaluation measures to check the predictive performance of the cla
 
 ```python
 # Calculate accuracy 
-acc = accuracy_score(y_test,y_pred) * 100
+acc = None
 print('Accuracy is :{0}'.format(acc))
 
 # Check the AUC for predictions
-false_positive_rate, true_positive_rate, thresholds = roc_curve(y_test, y_pred)
-roc_auc = auc(false_positive_rate, true_positive_rate)
+false_positive_rate, true_positive_rate, thresholds = None
+roc_auc = None
 print('\nAUC is :{0}'.format(round(roc_auc, 2)))
 
 # Create and print a confusion matrix 
 print('\nConfusion Matrix')
 print('----------------')
-pd.crosstab(y_test, y_pred, rownames=['True'], colnames=['Predicted'], margins=True)
 ```
-
-    Accuracy is :97.81818181818181
-    
-    AUC is :0.98
-    
-    Confusion Matrix
-    ----------------
-
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>Predicted</th>
-      <th>0</th>
-      <th>1</th>
-      <th>All</th>
-    </tr>
-    <tr>
-      <th>True</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>0</td>
-      <td>149</td>
-      <td>3</td>
-      <td>152</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>3</td>
-      <td>120</td>
-      <td>123</td>
-    </tr>
-    <tr>
-      <td>All</td>
-      <td>152</td>
-      <td>123</td>
-      <td>275</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-
-```python
-# Alternative confusion matrix
-from sklearn.metrics import plot_confusion_matrix
-
-plot_confusion_matrix(classifier, X, y, values_format='.3g')
-plt.show()
-```
-
-
-![png](index_files/index_18_0.png)
-
 
 ## Level up (Optional)
 
@@ -356,21 +146,8 @@ The default impurity criterion in scikit-learn is the Gini impurity. We can chan
 
 ```python
 # Instantiate and fit a DecisionTreeClassifier
-classifier_2 = DecisionTreeClassifier(random_state=10, criterion='entropy')  
-classifier_2.fit(X_train, y_train)
+classifier_2 = None
 ```
-
-
-
-
-    DecisionTreeClassifier(ccp_alpha=0.0, class_weight=None, criterion='entropy',
-                           max_depth=None, max_features=None, max_leaf_nodes=None,
-                           min_impurity_decrease=0.0, min_impurity_split=None,
-                           min_samples_leaf=1, min_samples_split=2,
-                           min_weight_fraction_leaf=0.0, presort='deprecated',
-                           random_state=10, splitter='best')
-
-
 
 
 ```python
@@ -383,13 +160,19 @@ tree.plot_tree(classifier_2,
 plt.show()
 ```
 
-
-![png](index_files/index_22_0.png)
-
-
 - We discussed earlier that decision trees are very sensitive to outliers. Try to identify and remove/fix any possible outliers in the dataset.
 
+
+```python
+
+```
+
 - Check the distributions of the data. Is there any room for normalization/scaling of the data? Apply these techniques and see if it improves the accuracy score.
+
+
+```python
+
+```
 
 ## Summary 
 
